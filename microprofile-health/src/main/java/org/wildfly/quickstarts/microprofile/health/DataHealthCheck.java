@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class DataHealthCheck implements HealthCheck {
     private Logger LOG = Logger.getLogger(DataHealthCheck.class.getName());
-    private boolean fail = Boolean.getBoolean("APP_LIVENESS_FAIL");
+    private String fail = System.getenv("APP_LIVENESS_FAIL");
 
     @Override
     public HealthCheckResponse call() {
         LOG.info("Liveness probe called="+fail);
-        if (fail) {
+        if (Boolean.parseBoolean(fail)) {
             return HealthCheckResponse.named("Health check failed")
                     .down()
                     .build();

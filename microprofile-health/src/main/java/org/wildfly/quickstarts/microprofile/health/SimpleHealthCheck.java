@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 public class SimpleHealthCheck implements HealthCheck {
 
     private Logger LOG = Logger.getLogger(SimpleHealthCheck.class.getName());
-    private boolean fail = Boolean.getBoolean("APP_READINESS_FAIL");
+    private String fail = System.getenv("APP_READINESS_FAIL");
 
 
     @Override
     public HealthCheckResponse call() {
         LOG.info("Readiness probe invoked="+fail);
-        if (fail) {
+        if (Boolean.parseBoolean(fail)) {
             return HealthCheckResponse.named("Fail Readiness health check").down().build();
         }
         return HealthCheckResponse.named("Simple health check").up().build();
