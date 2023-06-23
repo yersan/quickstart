@@ -16,7 +16,7 @@ public class DataHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        LOG.info("Liveness probe called");
+        LOG.info("Liveness probe called="+fail);
         if (fail) {
             return HealthCheckResponse.named("Health check failed")
                     .down()

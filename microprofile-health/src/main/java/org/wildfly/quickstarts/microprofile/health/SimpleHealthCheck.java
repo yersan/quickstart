@@ -18,7 +18,7 @@ public class SimpleHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        LOG.info("Readiness probe invoked");
+        LOG.info("Readiness probe invoked="+fail);
         if (fail) {
             return HealthCheckResponse.named("Fail Readiness health check").down().build();
         }
