@@ -1,5 +1,7 @@
 package org.jboss.as.quickstarts.mail;
 
+import java.time.Duration;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,12 +13,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MailTestCaseIT {
@@ -27,14 +27,12 @@ public class MailTestCaseIT {
 
     @Before
     public void testSetup() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("-headless");
 
-        driver = new ChromeDriver(options);
+        driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
 
         String serverHost = System.getenv("SERVER_HOST");
